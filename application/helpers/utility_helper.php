@@ -5,18 +5,6 @@
 
     class Utility_helper
     {
-        public static function shuffleString(int $range): string
-        {
-            $set = '3456789abcdefghjkmnpqrstvwxyABCDEFGHJKMNPQRSTVWXY';
-            return substr(str_shuffle($set), 0, $range);
-        }
-
-        public static function shuffleStringSmallCaps(int $range): string
-        {
-            $set = '3456789abcdefghjkmnpqrstvwxy';
-            return substr(str_shuffle($set), 0, $range);
-        }
-
         public static function resetArrayByKeyMultiple(array $arrays, string $key): array
         {
             if (empty($arrays)) return [];
@@ -60,10 +48,25 @@
             return file_put_contents($file, $message, FILE_APPEND);
         }
 
-        public static function getAndUnsetValue(array &$array, string $key): mixed
+        public static function getAndUnsetValue(array &$array, string $key, string $type = ''): mixed
         {
             $value = $array[$key];
             unset($array[$key]);
+            if ($type) self::setValue($type, $value);
+
             return $value;
+        }
+
+        public static function setValue(string $type, mixed &$value): void
+        {
+            if ($type === 'string') {
+                $value = strval($value);
+            } elseif ($type === 'int') {
+                $value = intval($value);
+            } elseif ($type === 'float') {
+                $value = floatval($value);
+            }
+
+            return;
         }
     }

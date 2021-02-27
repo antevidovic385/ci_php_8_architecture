@@ -11,7 +11,7 @@
      *
      * ValidateData class contains public static methods for data validation.
      */
-    Class Validate_data_helper
+    Class Validate_helper
     {
         /**
          * validateString
